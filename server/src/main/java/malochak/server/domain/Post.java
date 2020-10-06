@@ -3,9 +3,8 @@ package malochak.server.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -14,14 +13,29 @@ import java.util.Date;
 public class Post {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "The title of post cannot be blank.")
     private String title;
+
+    @NotBlank(message = "The author of post must be specified")
     private String author;
+
     @Column(columnDefinition="TEXT")
+    @NotBlank(message = "The post text cannot be blank.")
     private String content;
 
     private Date creationDate;
     private Date updateDate;
 
+    @PrePersist
+    public void onCreate() {
+        this.creationDate = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.updateDate = new Date();
+    }
 }

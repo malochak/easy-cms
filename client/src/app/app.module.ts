@@ -7,6 +7,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {ContentComponent} from './content/content.component';
 import { PostComponent } from './post/post.component';
 import { ManagementComponent } from './management/management.component';
+import {PostService} from './services/post.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,12 @@ import { ManagementComponent } from './management/management.component';
     NavbarComponent,
     ContentComponent,
     PostComponent,
-    ManagementComponent
+    ManagementComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
