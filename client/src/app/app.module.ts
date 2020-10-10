@@ -9,6 +9,7 @@ import { PostComponent } from './post/post.component';
 import { ManagementComponent } from './management/management.component';
 import {PostService} from './services/post.service';
 import {HttpClientModule} from '@angular/common/http';
+import {SinglePostComponent} from './post/single-post/single-post.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {HttpClientModule} from '@angular/common/http';
     ContentComponent,
     PostComponent,
     ManagementComponent,
+    SinglePostComponent,
   ],
   imports: [
     BrowserModule,

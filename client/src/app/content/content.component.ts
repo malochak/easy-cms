@@ -6,15 +6,8 @@ import {Observable} from 'rxjs';
   selector: 'app-content',
   templateUrl: './content.component.html'
 })
-@Injectable()
 export class ContentComponent {
-  posts: any;
 
-  constructor(private postService: PostService) {
-    const response: Observable<any> = postService.getPosts();
-    response.subscribe(data => {
-      this.posts = data;
-    });
-    console.log(this.posts);
+  constructor() {
   }
 }

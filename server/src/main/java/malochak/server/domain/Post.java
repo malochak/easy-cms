@@ -1,5 +1,6 @@
 package malochak.server.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,7 +27,10 @@ public class Post {
     @NotBlank(message = "The post text cannot be blank.")
     private String content;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date creationDate;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date updateDate;
 
     @PrePersist
