@@ -25,7 +25,6 @@ export class NewPostComponent implements OnInit {
       content: this.content
     };
 
-    console.log('NewPostComponent - ', newPost);
     this.postService.createPost(newPost);
   }
 
