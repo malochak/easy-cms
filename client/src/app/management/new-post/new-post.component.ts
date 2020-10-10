@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-new-post',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewPostComponent implements OnInit {
 
-  constructor() { }
+  title: string;
+  author: string;
+  content: string;
+
+  constructor(private postService: PostService) { }
 
   ngOnInit(): void {
+  }
+
+  sendPost(event: Event): void {
+    event.preventDefault();
+    const newPost = {
+      title: this.title,
+      author: this.author,
+      content: this.content
+    };
+
+    console.log('NewPostComponent - ', newPost);
+    this.postService.createPost(newPost);
   }
 
 }

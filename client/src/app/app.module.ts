@@ -11,6 +11,7 @@ import {PostService} from './services/post.service';
 import {HttpClientModule} from '@angular/common/http';
 import {SinglePostComponent} from './post/single-post/single-post.component';
 import { NewPostComponent } from './management/new-post/new-post.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NewPostComponent } from './management/new-post/new-post.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     PostService
