@@ -3,9 +3,13 @@
     <div class="sidebar-sticky pt-3">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="#">
+          <a class="nav-link active" routerLink="/management">
             <span data-feather="home"></span>
             Dashboard <span class="sr-only">(current)</span>
+          </a>
+          <a class="nav-link active" routerLink="/management/new-post">
+            <span data-feather="home"></span>
+            New post <span class="sr-only">(current)</span>
           </a>
         </li>
       </ul>
@@ -16,6 +20,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2 align-content-center">Dashboard</h1>
     </div>
+    <router-outlet></router-outlet>
   </main>
 </div>
-<router-outlet></router-outlet>
+
