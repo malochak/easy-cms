@@ -15,12 +15,7 @@ export class PostService {
     return this.http.get(this.baseUrl + 'post');
   }
 
-  createPost(post: object): void {
-    const response = this.http.post(this.baseUrl + 'post', post)
-      .toPromise()
-      .then( () => this.router.navigate(['/']))
-      .catch(error => console.log('ERROR - ', error));
-    // todo implement error handling
-    console.log('PostService - ', response);
+  createPost(post: object): Observable<any> {
+    return this.http.post(this.baseUrl + 'post', post);
   }
 }

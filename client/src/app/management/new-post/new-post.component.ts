@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PostService} from '../../services/post.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -8,11 +9,26 @@ import {PostService} from '../../services/post.service';
 })
 export class NewPostComponent implements OnInit {
 
+  constructor(private postService: PostService, private route: Router) {
+  }
+
   title: string;
   author: string;
   content: string;
 
-  constructor(private postService: PostService) { }
+  error = {
+    navigation: '',
+    title: '',
+    author: '',
+    content: ''
+  };
+
+  defaultError = {
+    navigation: '',
+    title: '',
+    author: '',
+    content: ''
+  };
 
   ngOnInit(): void {
   }
@@ -25,7 +41,16 @@ export class NewPostComponent implements OnInit {
       content: this.content
     };
 
-    this.postService.createPost(newPost);
-  }
+    this.postService.createPost(newPost)
+      .toPromise()
+      .then(() => {
+        this.error = this.defaultError;
+        if (!this.route.navigate(['/'])) {
+          this.error.navigation = 'Cannot navigate to main page after successful post sending.';
+        }
+      })
+      .catch(err => this.error = err.error);
 
+    console.log('err', this.error);
+  }
 }
