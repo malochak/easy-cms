@@ -2,9 +2,10 @@ package malochak.server.controller;
 
 import malochak.server.domain.Post;
 import malochak.server.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import malochak.server.service.RequestValidationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,13 +14,22 @@ import javax.validation.Valid;
 @RequestMapping("/api/post")
 public class PostController {
 
-    @Autowired
-    PostRepository postRepository;
+    final PostRepository postRepository;
+    final RequestValidationService validationService;
 
+    public PostController(PostRepository postRepository, RequestValidationService validationService) {
+        this.postRepository = postRepository;
+        this.validationService = validationService;
+    }
 
-    // Todo validate request
     @PostMapping()
-    public ResponseEntity<Post> newPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<?> newPost(@Valid @RequestBody Post post, BindingResult result) {
+        ResponseEntity<?> errorResponse = validationService.validateRequest(result);
+
+        if (errorResponse != null) {
+            return errorResponse;
+        }
+
         postRepository.save(post);
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
