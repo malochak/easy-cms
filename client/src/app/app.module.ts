@@ -12,6 +12,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {SinglePostComponent} from './post/single-post/single-post.component';
 import { NewPostComponent } from './management/new-post/new-post.component';
 import {FormsModule} from '@angular/forms';
+import { EditPostComponent } from './management/edit-post/edit-post.component';
+import { EditPostFormComponent } from './management/edit-post/edit-post-form/edit-post-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import {FormsModule} from '@angular/forms';
     ManagementComponent,
     SinglePostComponent,
     NewPostComponent,
+    EditPostComponent,
+    EditPostFormComponent,
   ],
   imports: [
     BrowserModule,
