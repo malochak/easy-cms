@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PostService} from '../../../services/post.service';
+import {Post} from '../../../post/post.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-post-form',
@@ -7,9 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditPostFormComponent implements OnInit {
 
-  title: string;
-  author: string;
-  content: string;
+  post: Post = {id: -1, title: '', author: '', content: '', creationDate: null, updateDate: null};
 
   error = {
     navigation: '',
@@ -25,9 +26,16 @@ export class EditPostFormComponent implements OnInit {
     content: ''
   };
 
-  constructor() { }
+  constructor(postService: PostService, route: Router) {
+    const id = 2; // Todo ~ get post id from route path
+    postService.getPost(id).then((data: Post) => this.post = data);
+  }
 
   ngOnInit(): void {
   }
 
+  updatePost($event: MouseEvent): void {
+    $event.preventDefault();
+    console.log(this.post);
+  }
 }

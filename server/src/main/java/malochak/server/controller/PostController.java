@@ -9,9 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/post")
+@CrossOrigin
 public class PostController {
 
     final PostRepository postRepository;
@@ -37,5 +39,14 @@ public class PostController {
     @GetMapping()
     public ResponseEntity<Iterable<Post>> getPosts() {
         return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Post> getPost(@PathVariable Long id) {
+        Optional<Post> post = postRepository.findById(id);
+
+        return post.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+
     }
 }
