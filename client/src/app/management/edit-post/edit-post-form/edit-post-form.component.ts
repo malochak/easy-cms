@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../post/post.model';
-import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-edit-post-form',
@@ -26,12 +26,17 @@ export class EditPostFormComponent implements OnInit {
     content: ''
   };
 
-  constructor(postService: PostService, route: Router) {
-    const id = 2; // Todo ~ get post id from route path
+  constructor(postService: PostService, route: ActivatedRoute) {
+    const id = EditPostFormComponent.getIdFromRoute(route);
     postService.getPost(id).then((data: Post) => this.post = data);
   }
 
+  private static getIdFromRoute(route: ActivatedRoute): number {
+    return Number.parseFloat(route.snapshot.paramMap.get('id'));
+  }
+
   ngOnInit(): void {
+
   }
 
   updatePost($event: MouseEvent): void {

@@ -12,7 +12,7 @@ export class PostService {
   }
 
   async getPost(id: number): Promise<object> {
-    return await this.http.get(this.baseUrl + '/2').toPromise();
+    return await this.http.get(this.baseUrl + '/' + id).toPromise();
   }
 
   async getPosts(): Promise<object> {
