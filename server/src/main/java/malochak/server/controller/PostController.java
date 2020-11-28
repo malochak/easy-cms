@@ -1,7 +1,9 @@
 package malochak.server.controller;
 
+import lombok.AllArgsConstructor;
 import malochak.server.domain.Post;
 import malochak.server.repository.PostRepository;
+import malochak.server.service.PostService;
 import malochak.server.service.RequestValidationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +16,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/post")
 @CrossOrigin
+@AllArgsConstructor
 public class PostController {
 
-    final PostRepository postRepository;
-    final RequestValidationService validationService;
-
-    public PostController(PostRepository postRepository, RequestValidationService validationService) {
-        this.postRepository = postRepository;
-        this.validationService = validationService;
-    }
+    private final PostRepository postRepository;
+    private final PostService postService;
+    private final RequestValidationService validationService;
 
     @PostMapping()
     public ResponseEntity<?> newPost(@Valid @RequestBody Post post, BindingResult result) {
@@ -32,8 +31,7 @@ public class PostController {
             return errorResponse;
         }
 
-        postRepository.save(post);
-        return new ResponseEntity<>(post, HttpStatus.CREATED);
+        return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
     }
 
     @GetMapping()

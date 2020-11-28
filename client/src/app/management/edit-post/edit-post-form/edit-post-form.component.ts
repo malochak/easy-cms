@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../post/post.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit-post-form',
@@ -26,7 +26,7 @@ export class EditPostFormComponent implements OnInit {
     content: ''
   };
 
-  constructor(postService: PostService, route: ActivatedRoute) {
+  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {
     const id = EditPostFormComponent.getIdFromRoute(route);
     postService.getPost(id).then((data: Post) => this.post = data);
   }
@@ -41,6 +41,17 @@ export class EditPostFormComponent implements OnInit {
 
   updatePost($event: MouseEvent): void {
     $event.preventDefault();
-    console.log(this.post);
+
+    this.postService.createPost(this.post)
+      .toPromise()
+      .then(() => {
+        this.error = this.defaultError;
+        if (!this.router.navigate(['/'])) {
+          this.error.navigation = 'Cannot navigate to main page after successful post sending.';
+        }
+      })
+      .catch(err => this.error = err.error);
+
+    console.log('err', this.error);
   }
 }

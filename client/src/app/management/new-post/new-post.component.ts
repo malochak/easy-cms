@@ -12,6 +12,7 @@ export class NewPostComponent implements OnInit {
   constructor(private postService: PostService, private route: Router) {
   }
 
+  // Todo why no to create object from this fields?
   title: string;
   author: string;
   content: string;
