@@ -1,3 +1,37 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
 T# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -8,7 +42,7 @@ T# See http://help.github.com/ignore-files/ for more about ignoring files.
 /bazel-out
 
 # dependencies
-/node_modules
+client/node_modules
 
 # profiling files
 chrome-profiler-events*.json
