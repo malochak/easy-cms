@@ -2,7 +2,6 @@ package malochak.server.controller;
 
 import lombok.AllArgsConstructor;
 import malochak.server.domain.Post;
-import malochak.server.repository.PostRepository;
 import malochak.server.service.PostService;
 import malochak.server.service.RequestValidationService;
 import org.springframework.http.HttpStatus;
@@ -15,11 +14,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/post")
-@CrossOrigin
+@CrossOrigin(exposedHeaders="Access-Control-Allow-Origin")
 @AllArgsConstructor
 public class PostController {
 
-    private final PostRepository postRepository;
     private final PostService postService;
     private final RequestValidationService validationService;
 
@@ -36,15 +34,20 @@ public class PostController {
 
     @GetMapping()
     public ResponseEntity<Iterable<Post>> getPosts() {
-        return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable Long id) {
-        Optional<Post> post = postRepository.findById(id);
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        Optional<Post> post = postService.getPostById(id);
 
         return post.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+    }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deletePostById(@PathVariable Long id) {
+        return postService.deletePostById(id) ?
+                ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }

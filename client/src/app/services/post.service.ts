@@ -22,4 +22,8 @@ export class PostService {
   createPost(post: object): Observable<any> {
     return this.http.post(this.baseUrl, post);
   }
+
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + '/' + id);
+  }
 }

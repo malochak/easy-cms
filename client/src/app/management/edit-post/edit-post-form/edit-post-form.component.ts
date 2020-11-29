@@ -51,7 +51,6 @@ export class EditPostFormComponent implements OnInit {
         }
       })
       .catch(err => this.error = err.error);
-
-    console.log('err', this.error);
   }
+
 }

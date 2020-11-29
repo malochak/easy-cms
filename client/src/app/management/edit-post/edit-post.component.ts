@@ -7,7 +7,7 @@ import {Post} from '../../post/post.model';
   templateUrl: './edit-post.component.html',
   styleUrls: ['./edit-post.component.css']
 })
-export class EditPostComponent implements OnInit {
+export class EditPostComponent {
 
   posts: Post[] = [];
 
@@ -15,7 +15,10 @@ export class EditPostComponent implements OnInit {
     postService.getPosts().then((data: Post[]) => this.posts = data);
   }
 
-  ngOnInit(): void {
+  deletePost(id: number, event: any): void {
+    event.preventDefault();
+    this.posts = this.posts.filter(el => el.id !== id);
+    this.postService.deletePost(id).toPromise().catch(err => console.error(err));
   }
 
 }
